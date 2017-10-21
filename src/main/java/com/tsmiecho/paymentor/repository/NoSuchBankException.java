@@ -5,7 +5,7 @@ package com.tsmiecho.paymentor.repository;
  */
 public class NoSuchBankException extends Exception{
 
-    public NoSuchBankException(String message) {
+    NoSuchBankException(String message) {
         super(message);
     }
 }

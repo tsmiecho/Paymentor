@@ -11,6 +11,7 @@ import lombok.ToString;
 public class IssuerIdentificationNumber {
 
     static final String EMPTY_MESSAGE = "Issuer identification number cannot be empty";
+
     static final String ILLEGAL_CHARACTER_MESSAGE = "Issuer identification number can contain only digits";
 
     private String number;

@@ -12,20 +12,20 @@ import org.springframework.stereotype.Service;
  * Created by Tomasz Śmiechowicz on 20.10.17.
  */
 @Service
-public class IssuerIdentificationNumberRangeService {
+class IssuerIdentificationNumberRangeService {
 
     private final IssuerIdentificationNumberRangeRepository repository;
 
     @Autowired
-    public IssuerIdentificationNumberRangeService(IssuerIdentificationNumberRangeRepository repository) {
+    IssuerIdentificationNumberRangeService(IssuerIdentificationNumberRangeRepository repository) {
         this.repository = repository;
     }
 
-    public Bank determineBank(PrimaryAccountNumber pan) throws NoSuchBankException {
+    Bank determineBank(PrimaryAccountNumber pan) throws NoSuchBankException {
         return determineBank(pan.getIssuerIdentificationNumber());
     }
 
-    public Bank determineBank(IssuerIdentificationNumber inn) throws NoSuchBankException {
+    Bank determineBank(IssuerIdentificationNumber inn) throws NoSuchBankException {
         return repository.findByIssuerIdentificationNumber(inn);
 
     }
