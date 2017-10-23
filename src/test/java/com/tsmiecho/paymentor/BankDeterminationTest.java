@@ -4,6 +4,8 @@ import com.tsmiecho.paymentor.model.Bank;
 import com.tsmiecho.paymentor.model.IssuerIdentificationNumber;
 import com.tsmiecho.paymentor.model.PrimaryAccountNumber;
 import com.tsmiecho.paymentor.repository.IssuerIdentificationNumberRangeRepository;
+import com.tsmiecho.paymentor.service.BankLifecycleService;
+import com.tsmiecho.paymentor.service.IssuerIdentificationNumberRangeService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -17,19 +19,22 @@ public class BankDeterminationTest {
 
     private IssuerIdentificationNumberRangeService service;
 
+
     private Bank mockedBank = new Bank(2L, "nBank");
 
     @Before
     public void setUp() throws Exception {
         final IssuerIdentificationNumberRangeRepository mockedRepository = Mockito.mock(IssuerIdentificationNumberRangeRepository.class);
         Mockito.when(mockedRepository.findByIssuerIdentificationNumber(Mockito.anyObject())).thenReturn(mockedBank);
-        service = new IssuerIdentificationNumberRangeService(mockedRepository);
+        final BankLifecycleService bankLifecycleService = Mockito.mock(BankLifecycleService.class);
+        Mockito.when(bankLifecycleService.isBankSuspended(Mockito.anyString())).thenReturn(false);
+        service = new IssuerIdentificationNumberRangeService(mockedRepository, bankLifecycleService);
     }
 
     @Test
     public void bankWillBeFoundByValidPrimaryAccountNumber() throws Exception {
         final PrimaryAccountNumber pan = new PrimaryAccountNumber("5217123456789113", 6);
-        final Bank bank = service.determineBank(pan);
+        final Bank bank = service.findBank(pan);
 
         assertThat(bank).isEqualToComparingFieldByField(mockedBank);
     }
@@ -37,7 +42,7 @@ public class BankDeterminationTest {
     @Test
     public void bankWillBeFoundByValidIssuerIdentificationNumber() throws Exception {
         final IssuerIdentificationNumber iin = new IssuerIdentificationNumber("52");
-        final Bank bank = service.determineBank(iin);
+        final Bank bank = service.findBank(iin);
 
         assertThat(bank).isEqualToComparingFieldByField(mockedBank);
     }

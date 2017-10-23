@@ -14,11 +14,22 @@ public class Bank {
 
     private String name;
 
+    private boolean isSuspended;
+
     public Bank(long id, String name) {
         if(name == null || name.trim().isEmpty()){
             throw new IllegalArgumentException(EMPTY_MESSAGE);
         }
         this.id = id;
         this.name = name;
+    }
+
+    public Bank(long id, String name, boolean isSuspended) {
+        if(name == null || name.trim().isEmpty()){
+            throw new IllegalArgumentException(EMPTY_MESSAGE);
+        }
+        this.id = id;
+        this.name = name;
+        this.isSuspended = isSuspended;
     }
 }

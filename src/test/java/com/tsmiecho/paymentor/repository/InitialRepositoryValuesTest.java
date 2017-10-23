@@ -1,5 +1,6 @@
 package com.tsmiecho.paymentor.repository;
 
+import com.tsmiecho.paymentor.exception.NoSuchBankException;
 import com.tsmiecho.paymentor.model.Bank;
 import com.tsmiecho.paymentor.model.IssuerIdentificationNumber;
 import org.junit.Assert;

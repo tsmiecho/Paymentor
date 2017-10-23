@@ -1,11 +1,11 @@
-package com.tsmiecho.paymentor.repository;
+package com.tsmiecho.paymentor.exception;
 
 /**
  * Created by Tomasz Śmiechowicz on 20.10.17.
  */
 public class NoSuchBankException extends Exception{
 
-    NoSuchBankException(String message) {
+    public NoSuchBankException(String message) {
         super(message);
     }
 }

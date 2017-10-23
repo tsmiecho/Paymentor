@@ -24,4 +24,21 @@ public class BankTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(Bank.EMPTY_MESSAGE);
     }
+
+
+    @Test
+    public void nameShouldNotBeEmptyForThreeArgsConstructor(){
+        //given
+        long id = 1L;
+        String rawName = "";
+        boolean isSuspended = false;
+
+        //when
+        Throwable numberCantBeEmpty = catchThrowable(() -> new Bank(id, rawName, isSuspended));
+
+        //then
+        assertThat(numberCantBeEmpty)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(Bank.EMPTY_MESSAGE);
+    }
 }
