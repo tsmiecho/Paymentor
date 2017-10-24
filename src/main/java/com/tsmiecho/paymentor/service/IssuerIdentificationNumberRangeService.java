@@ -33,14 +33,14 @@ public class IssuerIdentificationNumberRangeService {
         this.bankLifecycleService = bankLifecycleService;
     }
 
-    public Bank findBank(PrimaryAccountNumber pan) throws NoSuchBankException, TechnicalException, IllegalAccessException {
+    public Bank findBank(PrimaryAccountNumber pan) throws NoSuchBankException, TechnicalException{
         if(pan == null){
             throw new IllegalArgumentException("Primary account number cannot be null");
         }
         return findBank(pan.getIssuerIdentificationNumber());
     }
 
-    public Bank findBank(IssuerIdentificationNumber inn) throws NoSuchBankException, TechnicalException, IllegalAccessException {
+    public Bank findBank(IssuerIdentificationNumber inn) throws NoSuchBankException, TechnicalException {
         if(inn == null){
             throw new IllegalArgumentException("Issuer identification number cannot be null");
         }
@@ -48,7 +48,7 @@ public class IssuerIdentificationNumberRangeService {
         return new Bank(bank.getId(), bank.getName(), bankLifecycleService.isBankSuspended(String.valueOf(bank.getId())));
     }
 
-    public List<Pair<PrimaryAccountNumber, Bank>> findBanksByPrimaryAccountNumbers(List<PrimaryAccountNumber> pans) throws NoSuchBankException, TechnicalException, IllegalAccessException {
+    public List<Pair<PrimaryAccountNumber, Bank>> findBanksByPrimaryAccountNumbers(List<PrimaryAccountNumber> pans) {
         if(CollectionUtils.isEmpty(pans)){
             throw new IllegalArgumentException("List of primary account numbers cannot be empty");
         }
@@ -57,7 +57,7 @@ public class IssuerIdentificationNumberRangeService {
                 .collect(Collectors.toList());
     }
 
-    public List<Pair<IssuerIdentificationNumber, Bank>> findBanksByIssuerIdentificationNumbers(List<IssuerIdentificationNumber> inns) throws NoSuchBankException, TechnicalException, IllegalAccessException {
+    public List<Pair<IssuerIdentificationNumber, Bank>> findBanksByIssuerIdentificationNumbers(List<IssuerIdentificationNumber> inns) {
         if(CollectionUtils.isEmpty(inns)){
             throw new IllegalArgumentException("List of issuer identification numbers cannot be empty");
         }
